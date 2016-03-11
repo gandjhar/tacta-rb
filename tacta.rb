@@ -27,16 +27,37 @@ loop do
    index( contacts )
 
    puts
-   response = ask "Who would you like to see (q to quit)? "
+   response = ask "Who would you like to see (n for new, q to quit)? "
 
    break if response == "q"
 
-   i = response.to_i
+   if response == "n"
+      contact = {}
 
-   contact = contacts[i-1]
+      puts
+      puts "Enter contact info:"
 
-   puts
-   show( contact )
-   puts
+      contact[:name ] = ask "Name? "
+      contact[:phone] = ask "Phone? "
+      contact[:email] = ask "Email? "
+
+      contacts << contact
+
+      puts
+      puts "New contact created:"
+      puts
+
+      show( contact )
+      puts
+   else
+      i = response.to_i
+
+      contact = contacts[i-1]
+
+      puts
+      show( contact )
+      puts
+   end
+
 end
 
