@@ -6,6 +6,11 @@ contacts << { name: "Nikola Tesla"    , phone: "+385 43 987 3355", email: "nik@i
 contacts << { name: "Genghis Khan"    , phone: "+976 2 194 2222" , email: "contact@empire.com" }
 contacts << { name: "Malcom X"        , phone: "+1 310 155 8822" , email: "x@theroost.org"     }
 
+def ask( prompt )
+   print prompt
+   gets.chomp
+end
+
 def index( contacts )
    contacts.each_with_index do |contact, i|
       puts "#{i+1}) #{contact[:name]}"
@@ -21,8 +26,7 @@ end
 index( contacts )
 
 puts
-print "Who would you like to see? "
-response = gets.chomp
+response = ask "Who would you like to see? "
 
 i = response.to_i
 
