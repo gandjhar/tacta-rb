@@ -23,15 +23,18 @@ def show( contact )
    puts "email: #{contact[:email]}"
 end
 
-index( contacts )
+loop do
+   index( contacts )
 
-puts
-response = ask "Who would you like to see? "
+   puts
+   response = ask "Who would you like to see? "
 
-i = response.to_i
+   i = response.to_i
 
-contact = contacts[i-1]
+   contact = contacts[i-1]
 
-puts
-show( contact )
+   puts
+   show( contact )
+   puts
+end
 
