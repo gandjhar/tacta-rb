@@ -12,6 +12,12 @@ get '/contacts' do
    erb :'contacts/index'
 end
 
+# Must come before 'show', since route
+# also matches show with id='new'
+get '/contacts/new' do
+   erb :'contacts/new'
+end
+
 get '/contacts/:i' do
    i = params[:i].to_i
    contacts = read_contacts
