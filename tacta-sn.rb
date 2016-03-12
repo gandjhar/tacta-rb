@@ -18,6 +18,20 @@ get '/contacts/new' do
    erb :'contacts/new'
 end
 
+post '/contacts' do
+   new_contact = { name: params[:name], phone: params[:phone], email: params[:email] }
+
+   contacts = read_contacts
+
+   contacts << new_contact
+
+   write_contacts( contacts )
+
+   i = contacts.length
+
+   redirect "/contacts/#{i}"
+end
+
 get '/contacts/:i' do
    i = params[:i].to_i
    contacts = read_contacts
