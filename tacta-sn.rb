@@ -12,3 +12,9 @@ get '/contacts' do
    erb :'contacts/index'
 end
 
+get '/contacts/:i' do
+   i = params[:i].to_i
+   contacts = read_contacts
+   @contact = contacts[i - 1]
+   erb :'contacts/show'
+end
