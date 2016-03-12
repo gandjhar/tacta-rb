@@ -22,14 +22,12 @@ post '/contacts' do
    new_contact = { name: params[:name], phone: params[:phone], email: params[:email] }
 
    contacts = read_contacts
-
    contacts << new_contact
-
    write_contacts( contacts )
 
-   i = contacts.length
+   i = contacts.length - 1
 
-   redirect "/contacts/#{i-1}"
+   redirect "/contacts/#{i}"
 end
 
 get '/contacts/:i' do
