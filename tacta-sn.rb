@@ -29,12 +29,13 @@ post '/contacts' do
 
    i = contacts.length
 
-   redirect "/contacts/#{i}"
+   redirect "/contacts/#{i-1}"
 end
 
 get '/contacts/:i' do
    i = params[:i].to_i
    contacts = read_contacts
-   @contact = contacts[i - 1]
+   @contact = contacts[i]
    erb :'contacts/show'
 end
+
