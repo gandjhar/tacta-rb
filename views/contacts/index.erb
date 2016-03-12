@@ -3,3 +3,6 @@
 <% @contacts.each_with_index do |contact, i| %>
     <h3><a href="/contacts/<%= i %>"><%= contact[:name] %></a></h3>
 <% end %>
+
+<br>
+<a href="/contacts/new">[New]</a>
