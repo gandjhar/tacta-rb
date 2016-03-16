@@ -2,13 +2,16 @@
 
 Web interface for Tacta contacts manager.
 
+Use Sinatra framework for web support.
+
 ```
 > gem install sinatra
 ```
 
-File: tacta-sn.rb
+Minimum code to see if Sinatra is working.  Put in same folder as `tacta.rb`.
 
-```
+File: tacta-sn.rb
+```ruby
 require 'sinatra'
 
 set :port, 4567
@@ -29,7 +32,7 @@ Run server
 [2016-03-11 16:23:22] INFO  WEBrick::HTTPServer#start: pid=6396 port=4567
 ```
 
-Navigate in broswer to
+Navigate in browser to
 
 ```
 http://localhost:4567/
@@ -39,11 +42,9 @@ http://localhost:4567/
 
 ## List Contacts
 
-Display list of contacts
+Display list of contacts.  Add a second handler, one for the route `/contacts`
 
-Add a second handler for the route /contacts
-
-```
+```ruby
 get '/' do
    # ...
 end
@@ -55,7 +56,7 @@ end
 
 Load the contacts file using the JSON file code from the pure ruby example.  Store in an instance variable.
 
-```
+```ruby
 require './contacts_file'
 
 get '/contacts' do
@@ -66,7 +67,7 @@ end
 
 Use 'erb' to render a view template for the index listing.
 
-```
+```ruby
 get '/contacts' do
    @contacts = read_contacts
    erb :'contacts/index'
@@ -78,7 +79,8 @@ Create the embeded ruby html template.  Sinatra looks for templates in the views
 List the contacts from `@contacts`.
 
 File: `views/contacts/index.erb`
-```
+
+```html
 <h2>Contacts</h2>
 
 <% @contacts.each do |contact| %>
@@ -92,7 +94,7 @@ File: `views/contacts/index.erb`
 
 Add a handler for route to show an individual contact
 
-```
+```ruby
 get '/contacts/:i' do
    @i = params[:i].to_i
    contacts = read_contacts
@@ -105,7 +107,7 @@ Make a template for Show
 
 File: `views/contacts/show.erb`
 
-```
+```ruby
 <h1><%= @contact[:name] %></h1>
 <p><%= @contact[:phone] %></p>
 <p><%= @contact[:email] %></p>
@@ -119,7 +121,7 @@ Create a layout.
 
 File: `views/layout.erb`
 
-```
+```html
 <!DOCTYPE html>
 <html>
 <head>
@@ -142,7 +144,7 @@ File: `views/layout.erb`
 
 Make links to show each contact in the index.
 
-```
+```html
 <% @contacts.each_with_index do |contact, i| %>
     <h3><a href="/contacts/<%= i %>"><%= contact[:name] %></a></h3>
 <% end %>
@@ -154,7 +156,7 @@ Now can click on a contact to show it.
 
 Add also a link in the contact back to the index.
 
-```
+```html
 <h2><%= @contact[:name] %></h2>
 <p><%= @contact[:phone] %></p>
 <p><%= @contact[:email] %></p>
@@ -173,7 +175,7 @@ Make a form for creating a new contact.
 
 File `views/contacts/new.erb`
 
-```
+```html
 <h2>New Contact</h2>
 
 <form action="/contacts" method="POST">
@@ -187,7 +189,7 @@ File `views/contacts/new.erb`
 
 Connect it with a route
 
-```
+```ruby
 get '/contacts/new' do
    erb :'contacts/new'
 end
@@ -199,7 +201,7 @@ Must come before the show route of `/contact/:i`, since that route also matches 
 
 Add a new contact link to the index.
 
-```
+```html
 <h2>Contacts</h2>
 
 <% @contacts.each_with_index do |contact, i| %>
@@ -217,7 +219,7 @@ Clicking link navigates to form.
 
 Add route for post of new contact form.
 
-```
+```ruby
 post '/contacts' do
    # Create new contact ...
 end
@@ -225,7 +227,7 @@ end
 
 Adds the new contact to the list.
 
-```
+```ruby
 post '/contacts' do
    new_contact = { name: params[:name], phone: params[:phone], email: params[:email] }
 
@@ -253,7 +255,7 @@ Would like to remove the underline from the Cancel button.  Make a style sheet i
 
 File: public/app.css
 
-```
+```css
 button a {
    text-decoration: none;
    color: initial;
@@ -262,7 +264,7 @@ button a {
 
 Include the style sheet in the layout
 
-```
+```html
 <head>
   <title>Tacta</title>
   <link rel="stylesheet" href="<%= url('/app.css') %>" type="text/css"/>
@@ -277,7 +279,7 @@ Underline should be gone.
 
 Add a link from the show page to edit a contact
 
-```
+```html
 <br>
 <a href="/contacts/<%= @i %>/edit">[Edit]</a>
 <a href="/contacts">[Index]</a>
@@ -289,7 +291,7 @@ Edit link
 
 Add a route to edit a contact
 
-```
+```ruby
 get '/contacts/:i/edit' do
    @i = params[:i].to_i
 
@@ -303,7 +305,7 @@ end
 Create edit contact form.
 
 File: /views/contacts/edit.erb
-```
+```html
 <h2>Edit Contact</h2>
 
 <form action="/contacts/<%= @i %>/update" method="POST">
@@ -320,7 +322,7 @@ File: /views/contacts/edit.erb
 
 Add a route to handle the post update
 
-```
+```ruby
 post '/contacts/:i/update' do
    i = params[:i].to_i
 
@@ -344,7 +346,7 @@ Edited
 Add a delete contact link to the show page.
 
 File: views/contacts/show.erb
-```
+```html
 # ...
 
 <br>
@@ -357,7 +359,7 @@ File: views/contacts/show.erb
 
 Add a route for delete
 
-```
+```ruby
 get '/contacts/:i/delete' do
    i = params[:i].to_i
 
@@ -372,3 +374,21 @@ end
 Piet is gone.
 
 ![Deleted](./sinatra/deleted.png)
+
+## Exercise
+
+**[Seach]** Add a search feature.
+
+## Summary
+
+Covered
+- Sinatra Server
+- Routes & Handlers
+- View Templates
+- Erb
+- Instance Variables for Views
+- Request params
+- Forms
+- Get vs Post
+- Shared Layout File / Yield
+- Restful structure (Index/Show/New/Create/Edit/Update/Delete)

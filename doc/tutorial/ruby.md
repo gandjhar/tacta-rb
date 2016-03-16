@@ -38,7 +38,7 @@ Output:
 
 Oops, maybe better to number from 1 instead of 0.
 
-```
+```ruby
 contacts.each_with_index do |contact, i|
    puts "#{i+1}) #{contact[:name]}"
 end
@@ -57,7 +57,7 @@ Output:
 
 ## Show Selected Contact
 
-```
+```ruby
 puts
 print "Who would you like to see? "
 response = gets.chomp
@@ -92,7 +92,7 @@ email: nik@inductlabs.com
 
 Create methods from the code for listing the contacts (index) and displaying a contact (show).
 
-```
+```ruby
 def index( contacts )
    contacts.each_with_index do |contact, i|
       puts "#{i+1}) #{contact[:name]}"
@@ -108,7 +108,7 @@ end
 
 Main code becomes simpler.
 
-```
+```ruby
 index( contacts )
 
 puts
@@ -127,7 +127,7 @@ show( contact )
 
 Factor further with method to prompt user.
 
-```
+```ruby
 def ask( prompt )
    print prompt
    gets.chomp
@@ -136,7 +136,7 @@ end
 
 Main becomes simpler again.
 
-```
+```ruby
 index( contacts )
 
 puts
@@ -152,9 +152,9 @@ show( contact )
 
 ## Loop
 
-Loop instead of extiing after a single contact lookup.
+Loop instead of exiting after a single contact lookup.
 
-```
+```ruby
 loop do
    index( contacts )
 
@@ -203,7 +203,7 @@ email: contact@empire.com
 
 Add option to quit.  Break out of loop.
 
-```
+```ruby
 loop do
    # ...
 
@@ -247,7 +247,7 @@ Bye!
 
 Add option to create a new contact.
 
-```
+```ruby
 loop do
    index( contacts )
 
@@ -317,7 +317,7 @@ Who would you like to see (n for new, q to quit)?
 
 Loop is getting complex.  Factor the create new contact.
 
-```
+```ruby
 def create_new
    contact = {}
 
@@ -334,7 +334,7 @@ end
 
 The loop becomes simpler
 
-```
+```ruby
 if response == "n"
 
    contact = create_new
@@ -355,7 +355,7 @@ else
 
 Loop still seems too complicated.  Factor the actions for new and show.
 
-```
+```ruby
 def action_new( contacts )
    contact = create_new
 
@@ -380,7 +380,7 @@ end
 
 Loop is back to a manageable size.
 
-```
+```ruby
 loop do
    index( contacts )
 
@@ -401,7 +401,7 @@ end
 
 Add an action to delete a contact.
 
-```
+```ruby
 def action_delete( contacts )
    puts
    response = ask "Delete which contact? "
@@ -419,7 +419,7 @@ end
 
 Offer it in the menu.
 
-```
+```ruby
 loop do
    index( contacts )
 
@@ -467,7 +467,7 @@ Should graciously handle unknown commands.  First, need to recognize numbers by 
 
 The pattern `[0-9]+` matches a sequence of one or more digits.
 
-```
+```ruby
 def action_error
    puts
    puts "Sorry, I don't recognize that command."
@@ -475,7 +475,7 @@ def action_error
 end
 ```
 
-```
+```ruby
 if response == "n"
    action_new( contacts )
 elsif response == "d"
@@ -527,7 +527,7 @@ Offer a search option.  In the pattern, the \b means a word boundary, and the 'i
 
 Define the action
 
-```
+```ruby
 def action_search( contacts )
    puts
    pattern = ask "Search for? "
@@ -544,7 +544,7 @@ end
 
 Offer search in the menu.
 
-```
+```ruby
 loop do
    index( contacts )
 
@@ -595,7 +595,7 @@ Contacts disappear on exit.  Persist contacts in a file instead of an array.  Us
 
 File: contacts.json
 
-```
+```json
 [
   {
     "name": "Thomas Jefferson",
@@ -627,7 +627,7 @@ File: contacts.json
 
 Remove the old array of contacts
 
-```
+```ruby
 contacts = []
 
 contacts << { name: "Thomas Jefferson", phone: "+1 206 310 1369" , email: "tjeff@us.gov"       }
@@ -639,7 +639,7 @@ contacts << { name: "Malcom X"        , phone: "+1 310 155 8822" , email: "x@the
 
 Replace with code to read and write the contacts file
 
-```
+```ruby
 require 'json'
 
 def read_contacts
@@ -657,7 +657,7 @@ end
 
 Use read_contacts to load the contacts
 
-```
+```ruby
 loop do
    contacts = read_contacts
 
@@ -672,7 +672,7 @@ end
 
 Use write_contacts to update the file after adding or deleting a contact
 
-```
+```ruby
 def action_new( contacts )
    contact = create_new
 
@@ -713,7 +713,7 @@ Move the read and write methods to a file that can be shared by both the main ap
 
 File: contacts_file.rb
 
-```
+```ruby
 require 'json'
 
 def read_contacts
@@ -733,7 +733,7 @@ Create the seeding script.
 
 File: seeds.rb
 
-```
+```ruby
 require './contacts_file'
 
 contacts = []
@@ -758,7 +758,7 @@ This command should create or overwrite the existing contacts.json file, setting
 Also remove the file code from tacta.rb and replace it with a require statement as well.
 
 File: tacta.rb
-```
+```ruby
 require './contacts_file'
 
 # rest of app ...
