@@ -111,3 +111,6 @@ loop do
    end
 end
 
+puts
+puts "Bye!"
+

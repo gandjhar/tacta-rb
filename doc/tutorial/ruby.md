@@ -90,6 +90,8 @@ email: nik@inductlabs.com
 
 ## Factor Methods
 
+Create methods from the code for listing the contacts (index) and displaying a contact (show).
+
 ```
 def index( contacts )
    contacts.each_with_index do |contact, i|
@@ -211,6 +213,9 @@ loop do
 
    # ...
 end
+
+puts
+puts "Bye!"
 ```
 
 Output
@@ -234,6 +239,8 @@ email: nik@inductlabs.com
 5) Malcom X
 
 Who would you like to see (q to quit)? q
+
+Bye!
 ```
 
 ## New Contact
