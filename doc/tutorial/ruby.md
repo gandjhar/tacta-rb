@@ -763,3 +763,18 @@ require './contacts_file'
 
 # rest of app ...
 ```
+
+## Summary
+
+The simple Tacta application illustrates many basic Ruby and application programming aspects.
+
+- Console I/O
+- Control flow with branching and looping
+- Working with arrays and hashes
+- String Interpolation
+- Factoring with methods
+- Actions in response to requests
+- String Patterns (regular expressions)
+- File I/O
+- JSON format
+- Seeding test data.
