@@ -6,7 +6,7 @@ Display a list of contacts.
 
 File: tacta.rb
 
-```
+```ruby
 contacts = []
 
 contacts << { name: "Thomas Jefferson", phone: "+1 206 310 1369" , email: "tjeff@us.gov"       }
@@ -776,5 +776,6 @@ The simple Tacta application illustrates many basic Ruby and application program
 - Actions in response to requests
 - String Patterns (regular expressions)
 - File I/O
+- Persisting Data
 - JSON format
-- Seeding test data.
+- Seeding test data
