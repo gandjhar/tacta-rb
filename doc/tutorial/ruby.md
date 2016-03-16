@@ -411,7 +411,7 @@ def action_delete( contacts )
    puts
    puts "Contact for #{contacts[i-1][:name]} deleted."
 
-   contacts.delete_at( i )
+   contacts.delete_at( i-1 )
 
    puts
 end
@@ -451,11 +451,11 @@ Who would you like to see (n for new, d for delete, q to quit)? d
 
 Delete which contact? 3
 
-Contact for Genghis Khan deleted.
+Contact for Nikola Tesla deleted.
 
 1) Thomas Jefferson
 2) Charles Darwin
-3) Nikola Tesla
+3) Genghis Khan
 4) Malcom X
 
 Who would you like to see (n for new, d for delete, q to quit)?

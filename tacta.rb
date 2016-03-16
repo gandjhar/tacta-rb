@@ -62,7 +62,7 @@ def action_delete( contacts )
    puts
    puts "Contact for #{contacts[i-1][:name]} deleted."
 
-   contacts.delete_at( i )
+   contacts.delete_at( i-1 )
 
    write_contacts( contacts )
 
