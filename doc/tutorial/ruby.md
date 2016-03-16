@@ -465,7 +465,7 @@ Who would you like to see (n for new, d for delete, q to quit)?
 
 Should graciously handle unknown commands.  First, need to recognize numbers by matching a pattern.  Then show message if response is not a command or a number.
 
-The pattern [0-9]+ matches a sequence of one or more digits.
+The pattern `[0-9]+` matches a sequence of one or more digits.
 
 ```
 def action_error
@@ -591,7 +591,7 @@ email: nik@inductlabs.com
 
 ## Persist Contacts
 
-Contacts disappear on exit.  Persist contacts in a file instead, in JSON format.
+Contacts disappear on exit.  Persist contacts in a file instead of an array.  Use JSON format.
 
 File: contacts.json
 
@@ -697,7 +697,7 @@ def action_delete( contacts )
    puts
    puts "Contact for #{contacts[i-1][:name]} deleted."
 
-   contacts.delete_at( i )
+   contacts.delete_at( i-1 )
 
    write_contacts( contacts )
 
@@ -709,7 +709,7 @@ end
 
 Common in development to seed the data for testing.  Can write a seeds.rb program which will setup contacts.json with the test data.
 
-Move the read and write methods to a file that can be shared by both the main app tacta.rb and the seeding app seeds.rb
+Move the read and write methods to a file that can be shared by both the main app `tacta.rb` and the seeding script `seeds.rb`
 
 File: contacts_file.rb
 
